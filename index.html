@@ -4,55 +4,41 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
   <title>QR → AR (MindAR + A-Frame)</title>
+
   <!-- A-Frame -->
   <script src="https://unpkg.com/aframe@1.4.1/dist/aframe.min.js"></script>
-  <!-- MindAR A-Frame component -->
-  <script src="https://unpkg.com/mind-ar@1.1.4/dist/mindar-image-aframe.prod.js"></script>
+
+  <!-- MindAR versión buena (estable) -->
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar-image@0.5.6/dist/mindar-image-aframe.prod.js"></script>
 </head>
 <body style="margin:0;">
-  <button id="start" style="position:fixed;top:20px;left:20px;z-index:999;font-size:18px;padding:10px;">
+
+<button id="start" style="position:fixed;top:20px;left:20px;z-index:999;font-size:18px;padding:10px;">
   activar cámara
 </button>
 <script>
-  const s = document.querySelector('#start')
-  s.addEventListener('click', () => {
-    document.querySelector('a-scene').components['mindar-image'].start()
-    s.style.display='none'
-  })
+  document.querySelector('#start').addEventListener('click', () => {
+    const scene = document.querySelector('a-scene');
+    scene.components['mindar-image'].start();
+    document.querySelector('#start').style.display='none';
+  });
 </script>
 
-  <!-- Escena MindAR: imageTargetSrc debe apuntar al archivo .mind generado a partir del QR -->
- <a-scene
+<a-scene
   mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 1; uiLoading: yes; uiError: yes;"
-  xr-mode="image-tracking"
   embedded
   color-space="sRGB"
   vr-mode-ui="enabled: false"
   renderer="antialias: true; alpha: true;"
 >
 
-    <!-- Cámara obligatoria para A-Frame/MindAR -->
-    <a-entity camera></a-entity>
+  <a-entity camera></a-entity>
 
-    <!-- Este entity corresponde al primer target (targetIndex: 0).
-         Dentro ponés lo que quieras que aparezca sobre el QR. -->
-    <a-entity mindar-image-target="targetIndex: 0">
-      <!-- Un plano de ayuda (opcional) -->
-      <a-plane position="0 0 0" rotation="-90 0 0" width="1" height="1" opacity="0.0"></a-plane>
+  <a-entity mindar-image-target="targetIndex: 0">
+    <a-box depth="0.5" height="0.5" width="0.5" position="0 0 0"></a-box>
+  </a-entity>
 
-      <!-- Modelo GLB: reemplazá ./model.glb por tu archivo -->
-      <a-box color="#ff0000" depth="0.5" height="0.5" width="0.5" position="0 0 0"></a-box>
-
-
-      <!-- También podés usar texto o elementos A-Frame -->
-      <!-- <a-text value="Hola!" align="center" position="0 0.5 0"></a-text> -->
-    </a-entity>
-
-    <!-- Controles / UI mínimos -->
-    <a-entity position="0 -1 0">
-      <a-entity id="instructions" text="value: Apuntá con la cámara al QR; si no carga, permití el uso de la cámara.; align: center; width: 2"></a-entity>
-    </a-entity>
-  </a-scene>
+</a-scene>
 </body>
 </html>
 
