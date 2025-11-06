@@ -3,44 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
-  <title>QR → AR (MindAR + A-Frame)</title>
+  <title>QR → AR</title>
 
-  <!-- A-Frame -->
   <script src="https://unpkg.com/aframe@1.4.1/dist/aframe.min.js"></script>
-
-  <!-- MindAR versión buena (estable) -->
   <script src="https://cdn.jsdelivr.net/npm/mind-ar-image@0.5.6/dist/mindar-image-aframe.prod.js"></script>
 </head>
 <body style="margin:0;">
 
-<button id="start" style="position:fixed;top:20px;left:20px;z-index:999;font-size:18px;padding:10px;">
-  activar cámara
-</button>
-<script>
-  document.querySelector('#start').addEventListener('click', () => {
-    const scene = document.querySelector('a-scene');
-    scene.components['mindar-image'].start();
-    document.querySelector('#start').style.display='none';
-  });
-</script>
-
 <a-scene
-  mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 1; uiLoading: yes; uiError: yes;"
+  mindar-image="imageTargetSrc: targets.mind;"
   embedded
   color-space="sRGB"
   vr-mode-ui="enabled: false"
   renderer="antialias: true; alpha: true;"
 >
-
-  <a-entity camera></a-entity>
+  <a-camera></a-camera>
 
   <a-entity mindar-image-target="targetIndex: 0">
     <a-box depth="0.5" height="0.5" width="0.5" position="0 0 0"></a-box>
   </a-entity>
 
 </a-scene>
+
 </body>
 </html>
-
 
 
