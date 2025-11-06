@@ -11,7 +11,15 @@
 </head>
 <body style="margin:0;">
   <!-- Escena MindAR: imageTargetSrc debe apuntar al archivo .mind generado a partir del QR -->
-  <a-scene mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 1; uiLoading: yes; uiError: yes;" embedded color-space="sRGB" vr-mode-ui="enabled: false" renderer="antialias: true; alpha: true;">
+ <a-scene
+  mindar-image="imageTargetSrc: ./targets.mind; maxTrack: 1; uiLoading: yes; uiError: yes;"
+  xr-mode="image-tracking"
+  embedded
+  color-space="sRGB"
+  vr-mode-ui="enabled: false"
+  renderer="antialias: true; alpha: true;"
+>
+
     <!-- Cámara obligatoria para A-Frame/MindAR -->
     <a-entity camera></a-entity>
 
@@ -39,3 +47,4 @@
   </a-scene>
 </body>
 </html>
+
